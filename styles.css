@@ -200,8 +200,8 @@ h1,
 h2 {
   font-family: var(--heading-font);
   font-weight: 400;
-  letter-spacing: -0.05em;
-  line-height: 0.94;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
 }
 
 h1 {
