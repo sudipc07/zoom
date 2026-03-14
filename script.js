@@ -2,6 +2,8 @@ const revealNodes = document.querySelectorAll(".reveal");
 const parallaxNodes = document.querySelectorAll("[data-parallax]");
 const mediaFrames = document.querySelectorAll(".media-frame img");
 const tiltFrames = document.querySelectorAll(".media-frame");
+const navToggle = document.querySelector(".nav-toggle");
+const mobileMenuLinks = document.querySelectorAll(".mobile-menu a");
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -69,6 +71,22 @@ if (canTilt) {
 
     frame.addEventListener("pointerleave", () => {
       frame.style.setProperty("--card-tilt-y", "0deg");
+    });
+  });
+}
+
+if (navToggle) {
+  navToggle.addEventListener("click", () => {
+    const isOpen = document.body.classList.toggle("menu-open");
+    navToggle.setAttribute("aria-expanded", String(isOpen));
+    navToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+  });
+
+  mobileMenuLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      document.body.classList.remove("menu-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      navToggle.setAttribute("aria-label", "Open menu");
     });
   });
 }
