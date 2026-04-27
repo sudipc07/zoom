@@ -1133,6 +1133,7 @@ h2 {
   gap: 20px;
   max-width: 34ch;
   justify-self: end;
+  text-align: right;
 }
 
 .footer-column {
@@ -1221,6 +1222,7 @@ h2 {
   .footer-columns {
     grid-column: auto;
     justify-self: start;
+    text-align: left;
   }
 
   .hero-copy {
