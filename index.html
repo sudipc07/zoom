@@ -409,6 +409,8 @@
       (function () {
         var micSvg =
           '<svg width="24" height="24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"></rect><path d="M5 10v2a7 7 0 0 0 14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line><line x1="8" y1="22" x2="16" y2="22"></line></svg>';
+        var yandleLabel = "YANDLE " + "assistant";
+        var chatLabel = "chat assistant";
 
         function swapVoxaIcon() {
           var button = document.querySelector('button[title="Talk to us"]');
@@ -427,17 +429,65 @@
           return true;
         }
 
-        if (swapVoxaIcon()) {
-          return;
+        function replaceAssistantLabel() {
+          var didReplace = false;
+          var walker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            {
+              acceptNode: function (node) {
+                var parent = node.parentElement;
+
+                if (!parent || /^(SCRIPT|STYLE|NOSCRIPT)$/i.test(parent.tagName)) {
+                  return NodeFilter.FILTER_REJECT;
+                }
+
+                return node.nodeValue.indexOf(yandleLabel) > -1
+                  ? NodeFilter.FILTER_ACCEPT
+                  : NodeFilter.FILTER_REJECT;
+              },
+            }
+          );
+          var textNode = walker.nextNode();
+
+          while (textNode) {
+            textNode.nodeValue = textNode.nodeValue.replace(yandleLabel, chatLabel);
+            didReplace = true;
+            textNode = walker.nextNode();
+          }
+
+          Array.from(document.querySelectorAll("[aria-label], [title]")).forEach(
+            function (element) {
+              ["aria-label", "title"].forEach(function (attribute) {
+                var value = element.getAttribute(attribute);
+
+                if (value && value.indexOf(yandleLabel) > -1) {
+                  element.setAttribute(attribute, value.replace(yandleLabel, chatLabel));
+                  didReplace = true;
+                }
+              });
+            }
+          );
+
+          return didReplace;
         }
 
+        swapVoxaIcon();
+        replaceAssistantLabel();
+
         var observer = new MutationObserver(function () {
-          if (swapVoxaIcon()) {
+          var iconSwapped = swapVoxaIcon();
+          var labelReplaced = replaceAssistantLabel();
+
+          if (iconSwapped && labelReplaced) {
             observer.disconnect();
           }
         });
 
         observer.observe(document.body, { childList: true, subtree: true });
+        document.addEventListener("click", function () {
+          window.setTimeout(replaceAssistantLabel, 0);
+        });
         window.setTimeout(function () {
           observer.disconnect();
         }, 15000);
