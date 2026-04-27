@@ -5,8 +5,6 @@ const tiltFrames = document.querySelectorAll(".media-frame");
 const navToggle = document.querySelector(".nav-toggle");
 const mobileMenuLinks = document.querySelectorAll(".mobile-menu a");
 const desktopNavMedia = window.matchMedia("(min-width: 1081px)");
-const themeButtons = document.querySelectorAll(".theme-option");
-const themeStorageKey = "zoom16-theme";
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -102,49 +100,6 @@ if (navToggle) {
     if (event.matches) {
       closeMenu();
     }
-  });
-}
-
-if (themeButtons.length > 0) {
-  const availableThemes = new Set(
-    Array.from(themeButtons, (button) => button.dataset.themeValue).filter(Boolean)
-  );
-
-  const setTheme = (theme) => {
-    if (!availableThemes.has(theme)) {
-      return;
-    }
-
-    document.body.dataset.theme = theme;
-
-    themeButtons.forEach((button) => {
-      const isActive = button.dataset.themeValue === theme;
-
-      button.classList.toggle("is-active", isActive);
-      button.setAttribute("aria-pressed", String(isActive));
-    });
-
-    try {
-      window.localStorage.setItem(themeStorageKey, theme);
-    } catch {}
-  };
-
-  let initialTheme = document.body.dataset.theme || "rose";
-
-  try {
-    const storedTheme = window.localStorage.getItem(themeStorageKey);
-
-    if (storedTheme && availableThemes.has(storedTheme)) {
-      initialTheme = storedTheme;
-    }
-  } catch {}
-
-  setTheme(initialTheme);
-
-  themeButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      setTheme(button.dataset.themeValue);
-    });
   });
 }
 
