@@ -1128,8 +1128,9 @@ h2 {
 
 .footer-columns {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 20px;
+  max-width: 34ch;
 }
 
 .footer-column {
