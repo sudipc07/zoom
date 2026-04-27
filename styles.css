@@ -515,8 +515,7 @@ body.menu-open .nav-toggle span:last-child {
 }
 
 .nav-cta,
-.button,
-.chat-pill {
+.button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -542,10 +541,8 @@ body.menu-open .nav-toggle span:last-child {
 
 .nav-cta:hover,
 .button:hover,
-.chat-pill:hover,
 .nav-cta:focus-visible,
-.button:focus-visible,
-.chat-pill:focus-visible {
+.button:focus-visible {
   transform: translateY(-2px);
 }
 
@@ -1071,18 +1068,6 @@ h2 {
   width: fit-content;
 }
 
-.chat-pill {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 18;
-  background: var(--chat-bg);
-  color: var(--text);
-  border: 1px solid var(--chat-border);
-  box-shadow: 0 16px 30px var(--chat-shadow);
-  backdrop-filter: blur(10px);
-}
-
 .site-footer {
   position: relative;
   isolation: isolate;
@@ -1465,13 +1450,6 @@ h2 {
 
   .about-copy {
     padding: 28px;
-  }
-
-  .chat-pill {
-    right: 12px;
-    bottom: 12px;
-    min-height: 46px;
-    padding: 0 18px;
   }
 
 }
