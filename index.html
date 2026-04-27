@@ -405,5 +405,43 @@
       data-position="bottom-right"
       data-label="Talk to us"
     ></script>
+    <script>
+      (function () {
+        var micSvg =
+          '<svg width="24" height="24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="11" rx="3"></rect><path d="M5 10v2a7 7 0 0 0 14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line><line x1="8" y1="22" x2="16" y2="22"></line></svg>';
+
+        function swapVoxaIcon() {
+          var button = document.querySelector('button[title="Talk to us"]');
+
+          if (!button) {
+            return false;
+          }
+
+          if (button.dataset.iconSwapped === "1") {
+            return true;
+          }
+
+          button.innerHTML = micSvg;
+          button.dataset.iconSwapped = "1";
+
+          return true;
+        }
+
+        if (swapVoxaIcon()) {
+          return;
+        }
+
+        var observer = new MutationObserver(function () {
+          if (swapVoxaIcon()) {
+            observer.disconnect();
+          }
+        });
+
+        observer.observe(document.body, { childList: true, subtree: true });
+        window.setTimeout(function () {
+          observer.disconnect();
+        }, 15000);
+      })();
+    </script>
   </body>
 </html>
