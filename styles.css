@@ -588,6 +588,7 @@ h2 {
 .closing-copy p,
 .footer-brand p,
 .footer-column p,
+.footer-column address,
 .footer-column a {
   color: var(--muted);
   font-size: 1rem;
@@ -1129,9 +1130,15 @@ h2 {
 
 .footer-brand p,
 .footer-column p,
+.footer-column address,
 .footer-column a,
 .footer-nav a {
   color: var(--footer-link);
+}
+
+.footer-column address {
+  font-style: normal;
+  line-height: 1.7;
 }
 
 .footer-columns {
