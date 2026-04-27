@@ -1091,7 +1091,7 @@ h2 {
 
 .footer-main {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(80px, 1fr) minmax(260px, 34ch);
   gap: 28px;
   padding: 72px 0 30px;
   border-top: 1px solid var(--line-strong);
@@ -1128,9 +1128,11 @@ h2 {
 
 .footer-columns {
   display: grid;
+  grid-column: 3;
   grid-template-columns: minmax(0, 1fr);
   gap: 20px;
   max-width: 34ch;
+  justify-self: end;
 }
 
 .footer-column {
@@ -1214,6 +1216,11 @@ h2 {
   .about-layout,
   .footer-main {
     grid-template-columns: 1fr;
+  }
+
+  .footer-columns {
+    grid-column: auto;
+    justify-self: start;
   }
 
   .hero-copy {
